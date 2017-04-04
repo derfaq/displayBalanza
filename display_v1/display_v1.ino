@@ -25,14 +25,14 @@ void spi_init(void){
 }
 
 //Code for transfer16 from: Arduino/hardware/arduino/avr/libraries/SPI/src/SPI.h
-//https://github.com/arduino/Arduino/blob/2bfe164b9a5835e8cb6e194b928538a9093be333/hardware/arduino/avr/libraries/SPI/src/SPI.h
+//https://github.com/arduino/Arduino/blob/master/hardware/arduino/avr/libraries/SPI/src/SPI.h
 
 inline static uint16_t transfer16(uint16_t data) {
-    union { uint16_t val; struct { uint8_t lsb; uint8_t msb; }; } in, out; //WTF!
+    union { uint16_t val; struct { uint8_t lsb; uint8_t msb; }; } in, out; 
     in.val = data;
     if (!(SPCR & _BV(DORD))) {
       SPDR = in.msb;
-      asm volatile("nop"); // See transfer(uint8_t) function, ASSEMBLER? REALLY?
+      asm volatile("nop"); 
       while (!(SPSR & _BV(SPIF))) ;
       out.msb = SPDR;
       SPDR = in.lsb;
